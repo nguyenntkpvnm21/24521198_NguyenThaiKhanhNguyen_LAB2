@@ -30,12 +30,13 @@
 - [x] Validate VNode types before rendering.
 
 ### Task 1.5 - Integration and Security Testing
-- [ ] Create a semantic HTML page.
-- [ ] Mount the VNode tree into the root container.
-- [ ] Verify the button click event.
-- [ ] Test XSS resistance.
-- [ ] Inspect the DOM using Chrome DevTools.
-- [ ] Check for unexpected nodes and Console errors.
+- [x] Create a semantic HTML page.
+- [x] Mount the VNode tree into the root container.
+- [x] Verify the button click event.
+- [x] Test basic XSS resistance.
+- [x] Inspect the DOM using Chrome DevTools.
+- [x] Check for unexpected nodes and Console errors.
+- [x] Verify invalid VNode rejection with automated tests.
 
 ### Task 1.6 - Git and Submission
 - [ ] Commit createElement implementation.
