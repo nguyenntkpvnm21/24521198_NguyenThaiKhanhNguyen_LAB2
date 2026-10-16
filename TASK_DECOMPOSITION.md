@@ -22,12 +22,12 @@
 - [x] Verify the generated VNode tree.
 
 ### Task 1.4 - Implement renderToDOM
-- [ ] Create real HTML elements from VNodes.
-- [ ] Create text nodes using document.createTextNode.
-- [ ] Assign element attributes.
-- [ ] Register event listeners.
-- [ ] Recursively render child nodes.
-- [ ] Validate VNode types before rendering.
+- [x] Create real HTML elements from VNodes.
+- [x] Create text nodes using document.createTextNode.
+- [x] Assign element attributes.
+- [x] Register event listeners.
+- [x] Recursively render child nodes.
+- [x] Validate VNode types before rendering.
 
 ### Task 1.5 - Integration and Security Testing
 - [ ] Create a semantic HTML page.
