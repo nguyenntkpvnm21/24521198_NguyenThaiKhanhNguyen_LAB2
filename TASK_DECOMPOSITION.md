@@ -65,3 +65,36 @@
 - [x] E2-10: Implement task creation and filtering
 - [x] E2-11: Verify reactive updates and DOM behavior
 - [x] E2-12: Complete final audit and documentation
+
+## Exercise 3: Resilient State Machine & Skeleton Loader
+
+### T-03A: State Machine Contract
+- [x] Define four states: IDLE, LOADING, SUCCESS, ERROR.
+- [x] Define valid state transitions.
+- [x] Prevent inconsistent state combinations.
+- [x] Verify state transition behavior.
+
+### T-03B: Asynchronous Data Service
+- [x] Implement simulated asynchronous data fetching.
+- [x] Support successful and failed requests.
+- [x] Handle race conditions between requests.
+- [x] Verify asynchronous behavior.
+
+### T-03C: Skeleton Loader
+- [x] Build semantic HTML page structure.
+- [x] Implement animated CSS skeleton placeholders.
+- [x] Display skeletons only during LOADING.
+- [x] Verify loading feedback.
+
+### T-03D: Reactive Data Feed
+- [x] Integrate the custom useState engine from Exercise 2.
+- [x] Render UI according to the current state.
+- [x] Display fetched data during SUCCESS.
+- [x] Display a readable error message during ERROR.
+- [x] Implement the Retry Connection button.
+
+### T-03E: Verification & Git
+- [x] Test IDLE, LOADING, SUCCESS, and ERROR.
+- [x] Test retry behavior after failure.
+- [x] Verify race-condition protection.
+- [x] Inspect browser Console and Elements.
