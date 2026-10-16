@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 2 - Event Delegation Test</title>
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <main>
+    <h1>Event Delegation Test</h1>
+    <section id="app" aria-label="Event test application"></section>
+    <p id="result" role="status" aria-live="polite">
+      Waiting for interaction...
+    </p>
+  </main>
+
+  <script type="module">
+    import { createElement } from '../exercise1/mini-react.js';
+    import { renderToDOM } from './render-to-dom.js';
+    import { setupEventDelegation } from './event-delegation.js';
+
+    const root = document.getElementById('app');
+    const result = document.getElementById('result');
+
+    let clickCount = 0;
+
+    const app = createElement(
+  'section',
+  { className: 'test-container' },
+
+  createElement(
+    'button',
+    {
+      type: 'button',
+      onClick: () => {
+        clickCount++;
+        result.textContent = `Button clicked ${clickCount} times`;
+      }
+    },
+    'Click Me'
+  ),
+
+  createElement(
+    'label',
+    { htmlFor: 'task-input' },
+    'Enter a task:'
+  ),
+
+  createElement(
+    'input',
+    {
+      id: 'task-input',
+      type: 'text',
+      placeholder: 'Type a task...',
+      onInput: (event) => {
+        result.textContent = `Input: ${event.target.value}`;
+      },
+      onKeydown: (event) => {
+        if (event.key === 'Enter') {
+          result.textContent =
+            `Enter pressed: ${event.target.value}`;
+        }
+      }
+    }
+  )
+);
+
+    setupEventDelegation(root);
+    setupEventDelegation(root);
+
+    root.replaceChildren(renderToDOM(app));
+
+    console.assert(
+      root.querySelector('button') !== null,
+      'Button mounting failed'
+    );
+
+    console.assert(
+      root.querySelector('button').__vnode !== undefined,
+      'VNode association failed'
+    );
+
+    console.log('Event delegation test initialized.');
+  </script>
+</body>
+</html>

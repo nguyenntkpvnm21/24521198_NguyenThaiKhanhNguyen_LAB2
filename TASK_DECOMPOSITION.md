@@ -56,9 +56,9 @@
 - [x] E2-05: Verify state persistence and hook call order
 
 ### Event Architecture
-- [ ] E2-06: Implement root event delegation hub
-- [ ] E2-07: Integrate events with the VNode engine
-- [ ] E2-08: Verify event listeners and cleanup behavior
+- [x] E2-06: Implement root event delegation hub
+- [x] E2-07: Integrate events with the VNode engine
+- [x] E2-08: Verify root listener counts and event behavior
 
 ### Reactive Application
 - [ ] E2-09: Implement Task Manager UI
