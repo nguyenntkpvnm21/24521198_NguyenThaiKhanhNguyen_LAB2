@@ -61,7 +61,7 @@
 - [x] E2-08: Verify root listener counts and event behavior
 
 ### Reactive Application
-- [ ] E2-09: Implement Task Manager UI
-- [ ] E2-10: Implement task creation and filtering
-- [ ] E2-11: Verify reactive updates and DOM behavior
-- [ ] E2-12: Complete final audit and documentation
+- [x] E2-09: Implement Task Manager UI
+- [x] E2-10: Implement task creation and filtering
+- [x] E2-11: Verify reactive updates and DOM behavior
+- [x] E2-12: Complete final audit and documentation
