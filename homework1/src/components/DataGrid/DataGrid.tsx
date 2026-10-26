@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
+
 import type { KeyboardEvent } from 'react';
 import type { DataGridProps } from '../../types/data-grid-contract';
 
@@ -13,7 +14,7 @@ type SortDirection = 'asc' | 'desc';
 type RowId = string | number;
 
 interface ActiveCell {
-  rowId: RowId;
+  rowId: RowId | null;
   columnIndex: number;
 }
 
@@ -29,6 +30,7 @@ export function DataGrid<T extends object>({
   // ==========================================
 
   const [sortKey, setSortKey] = useState<keyof T | null>(null);
+
   const [sortDirection, setSortDirection] =
     useState<SortDirection>('asc');
 
@@ -36,31 +38,25 @@ export function DataGrid<T extends object>({
   const [departmentFilter, setDepartmentFilter] = useState('ALL');
 
   const [currentPage, setCurrentPage] = useState(1);
+
   const [selectedIds, setSelectedIds] = useState<Set<RowId>>(
     () => new Set()
   );
 
-  const [activeCell, setActiveCell] =
-    useState<ActiveCell | null>(null);
+  const [activeCell, setActiveCell] = useState<ActiveCell>({
+    rowId: null,
+    columnIndex: 0,
+  });
+
+  const gridRef = useRef<HTMLTableElement>(null);
+  const pendingPageFocus = useRef(false);
 
   const searchId = useId();
   const departmentId = useId();
+  const descriptionId = useId();
+  const headerIdPrefix = useId();
 
   const pageSize = 5;
-
-  
-const gridRef = useRef<HTMLTableElement>(null);
-const pendingPageFocus = useRef(false);
-
-function handlePageChange(nextPage: number) {
-  if (nextPage < 1 || nextPage > totalPages) {
-    return;
-  }
-
-  pendingPageFocus.current = true;
-  setCurrentPage(nextPage);
-}
-
 
   // ==========================================
   // 2. SORTING HANDLER
@@ -175,25 +171,12 @@ function handlePageChange(nextPage: number) {
       startIndex + pageSize
     );
   }, [sortedData, safePage]);
-  useLayoutEffect(() => {
-  if (!pendingPageFocus.current) {
-    return;
-  }
-
-  pendingPageFocus.current = false;
-
-  const firstCell = gridRef.current?.querySelector<HTMLElement>(
-    'tbody [data-grid-nav="true"]'
-  );
-
-  firstCell?.focus();
-}, [safePage]);
 
   // ==========================================
   // 7. ROW SELECTION
   // ==========================================
 
-  const pageIds = paginatedData.map((item) => getRowId(item));
+  const pageIds = paginatedData.map(getRowId);
 
   const allPageSelected =
     pageIds.length > 0 &&
@@ -220,6 +203,12 @@ function handlePageChange(nextPage: number) {
     }
   }
 
+  function selectRow(item: T) {
+    if (!selectedIds.has(getRowId(item))) {
+      toggleRow(item);
+    }
+  }
+
   function toggleAllPage() {
     setSelectedIds((previous) => {
       const next = new Set(previous);
@@ -235,34 +224,83 @@ function handlePageChange(nextPage: number) {
   }
 
   // ==========================================
-  // 8. ACTIVE CELL MANAGEMENT
+  // 8. FOCUS MANAGEMENT
   // ==========================================
 
-  // If the previously active row is no longer visible,
-  // the first cell of the current page becomes tabbable.
+  const visibleRowIds = paginatedData.map(getRowId);
 
   const activeRowVisible =
-    activeCell !== null &&
-    paginatedData.some(
-      (item) => getRowId(item) === activeCell.rowId
-    );
+    activeCell.rowId !== null &&
+    visibleRowIds.includes(activeCell.rowId);
 
-  const effectiveActiveCell: ActiveCell | null =
-    activeRowVisible
-      ? activeCell
-      : paginatedData.length > 0
-        ? {
-            rowId: getRowId(paginatedData[0]),
-            columnIndex: 0,
-          }
-        : null;
+  const effectiveActiveCell: ActiveCell =
+    activeCell.rowId === null || !activeRowVisible
+      ? {
+          rowId: null,
+          columnIndex:
+            activeCell.rowId === null
+              ? activeCell.columnIndex
+              : 0,
+        }
+      : activeCell;
 
-  function isActiveCell(rowId: RowId, columnIndex: number) {
+  const activeRowIndex =
+    effectiveActiveCell.rowId === null
+      ? -1
+      : visibleRowIds.indexOf(effectiveActiveCell.rowId);
+
+  function isActiveCell(rowIndex: number, columnIndex: number) {
     return (
-      effectiveActiveCell?.rowId === rowId &&
+      activeRowIndex === rowIndex &&
       effectiveActiveCell.columnIndex === columnIndex
     );
   }
+
+  function focusCell(rowIndex: number, columnIndex: number) {
+    const target = gridRef.current?.querySelector<HTMLElement>(
+      `[data-grid-nav="true"]` +
+      `[data-nav-row="${rowIndex}"]` +
+      `[data-nav-col="${columnIndex}"]`
+    );
+
+    if (!target) return;
+
+    const item = paginatedData[rowIndex];
+
+    setActiveCell({
+      rowId: rowIndex === -1 ? null : getRowId(item),
+      columnIndex,
+    });
+
+    target.focus();
+  }
+
+  function handlePageChange(nextPage: number) {
+    if (nextPage < 1 || nextPage > totalPages) {
+      return;
+    }
+
+    pendingPageFocus.current = true;
+    setCurrentPage(nextPage);
+  }
+
+  useLayoutEffect(() => {
+    if (!pendingPageFocus.current) return;
+
+    pendingPageFocus.current = false;
+
+    const firstCell = gridRef.current?.querySelector<HTMLElement>(
+      'tbody [data-grid-nav="true"]'
+    );
+
+    if (firstCell) {
+      firstCell.focus();
+    } else {
+      gridRef.current?.querySelector<HTMLElement>(
+        'thead [data-grid-nav="true"]'
+      )?.focus();
+    }
+  }, [safePage]);
 
   // ==========================================
   // 9. KEYBOARD NAVIGATION
@@ -271,15 +309,15 @@ function handlePageChange(nextPage: number) {
   function handleGridKeyDown(
     event: KeyboardEvent<HTMLTableElement>
   ) {
-    if (!(event.target instanceof HTMLElement)) {
-      return;
-    }
+    const origin = event.target;
 
-    const target = event.target.closest<HTMLElement>(
+    if (!(origin instanceof HTMLElement)) return;
+
+    const target = origin.closest<HTMLElement>(
       '[data-grid-nav="true"]'
     );
 
-    if (!target) {
+    if (!target || !event.currentTarget.contains(target)) {
       return;
     }
 
@@ -293,31 +331,41 @@ function handlePageChange(nextPage: number) {
       return;
     }
 
-    const item = paginatedData[rowIndex];
-
-    if (!item) {
-      return;
-    }
+    const isHeader = rowIndex === -1;
 
     const isCheckbox =
       target instanceof HTMLInputElement &&
       target.type === 'checkbox';
 
-    // Enter selects the row if it is not selected.
-    if (event.key === 'Enter') {
-      event.preventDefault();
+    const isButton = target instanceof HTMLButtonElement;
 
-      if (!selectedIds.has(getRowId(item))) {
-        toggleRow(item);
+    const item = isHeader
+      ? null
+      : paginatedData[rowIndex];
+
+    // Activate header controls or select a row.
+    if (event.key === 'Enter') {
+      if (isHeader) {
+        if (isButton || isCheckbox) {
+          event.preventDefault();
+          target.click();
+        }
+      } else if (item) {
+        event.preventDefault();
+
+        if (isCheckbox) {
+          target.click();
+        } else {
+          selectRow(item);
+        }
       }
 
       return;
     }
 
-    // Space toggles selection for data cells.
-    // Native checkbox Space behavior is preserved.
+    // Space uses native behavior for buttons and checkboxes.
     if (event.key === ' ' || event.key === 'Spacebar') {
-      if (!isCheckbox) {
+      if (!isCheckbox && !isButton && item) {
         event.preventDefault();
         toggleRow(item);
       }
@@ -345,15 +393,22 @@ function handlePageChange(nextPage: number) {
         nextColumn++;
         break;
 
+      case 'Home':
+        nextColumn = 0;
+        break;
+
+      case 'End':
+        nextColumn = columns.length;
+        break;
+
       default:
         return;
     }
 
     event.preventDefault();
 
-    // Keep movement inside the current visible page.
     nextRow = Math.max(
-      0,
+      -1,
       Math.min(nextRow, paginatedData.length - 1)
     );
 
@@ -362,23 +417,7 @@ function handlePageChange(nextPage: number) {
       Math.min(nextColumn, columns.length)
     );
 
-    const nextTarget =
-      event.currentTarget.querySelector<HTMLElement>(
-        `[data-grid-nav="true"]` +
-        `[data-nav-row="${nextRow}"]` +
-        `[data-nav-col="${nextColumn}"]`
-      );
-
-    if (nextTarget) {
-      const nextItem = paginatedData[nextRow];
-
-      setActiveCell({
-        rowId: getRowId(nextItem),
-        columnIndex: nextColumn,
-      });
-
-      nextTarget.focus();
-    }
+    focusCell(nextRow, nextColumn);
   }
 
   // ==========================================
@@ -387,7 +426,7 @@ function handlePageChange(nextPage: number) {
 
   return (
     <div className="data-grid">
-      {/* Search and department filters */}
+      {/* Filtering controls */}
       <div className="grid-toolbar">
         <div className="filter-field">
           <label htmlFor={searchId}>
@@ -424,10 +463,7 @@ function handlePageChange(nextPage: number) {
             </option>
 
             {departments.map((department) => (
-              <option
-                key={department}
-                value={department}
-              >
+              <option key={department} value={department}>
                 {department}
               </option>
             ))}
@@ -435,33 +471,59 @@ function handlePageChange(nextPage: number) {
         </div>
       </div>
 
-      {/* Accessible data grid */}
+      {/* Keyboard navigation instructions */}
+      <p id={descriptionId} className="grid-instructions">
+        Use arrow keys to navigate the grid. Press Enter
+        to activate sorting or select a row. Press Space
+        to toggle selection. Use Tab to leave the grid.
+      </p>
+
+      {/* Accessible grid */}
       <div className="table-container">
         <table
-  ref={gridRef}
-  role="grid"
+          ref={gridRef}
+          role="grid"
           aria-label={ariaLabel}
+          aria-describedby={descriptionId}
           aria-multiselectable="true"
           onKeyDown={handleGridKeyDown}
         >
           <thead>
             <tr>
+              {/* Select-all header */}
               <th scope="col">
                 <input
                   type="checkbox"
                   aria-label="Select all employees on this page"
                   checked={allPageSelected}
                   onChange={toggleAllPage}
+                  data-grid-nav="true"
+                  data-nav-row={-1}
+                  data-nav-col={0}
+                  tabIndex={
+                    isActiveCell(-1, 0) ? 0 : -1
+                  }
+                  onFocus={() =>
+                    setActiveCell({
+                      rowId: null,
+                      columnIndex: 0,
+                    })
+                  }
                 />
               </th>
 
-              {columns.map((column) => {
+              {/* Sortable and regular headers */}
+              {columns.map((column, columnIndex) => {
                 const isSorted =
                   sortKey === column.accessorKey;
+
+                const headerId =
+                  `${headerIdPrefix}-${columnIndex}`;
 
                 return (
                   <th
                     key={String(column.accessorKey)}
+                    id={headerId}
                     scope="col"
                     aria-sort={
                       isSorted
@@ -475,6 +537,23 @@ function handlePageChange(nextPage: number) {
                       <button
                         type="button"
                         className="sort-button"
+                        data-grid-nav="true"
+                        data-nav-row={-1}
+                        data-nav-col={columnIndex + 1}
+                        tabIndex={
+                          isActiveCell(
+                            -1,
+                            columnIndex + 1
+                          )
+                            ? 0
+                            : -1
+                        }
+                        onFocus={() =>
+                          setActiveCell({
+                            rowId: null,
+                            columnIndex: columnIndex + 1,
+                          })
+                        }
                         onClick={() =>
                           handleSort(column.accessorKey)
                         }
@@ -490,7 +569,28 @@ function handlePageChange(nextPage: number) {
                         </span>
                       </button>
                     ) : (
-                      column.header
+                      <span
+                        data-grid-nav="true"
+                        data-nav-row={-1}
+                        data-nav-col={columnIndex + 1}
+                        tabIndex={
+                          isActiveCell(
+                            -1,
+                            columnIndex + 1
+                          )
+                            ? 0
+                            : -1
+                        }
+                        onFocus={() =>
+                          setActiveCell({
+                            rowId: null,
+                            columnIndex: columnIndex + 1,
+                          })
+                        }
+                        className="grid-header-text"
+                      >
+                        {column.header}
+                      </span>
                     )}
                   </th>
                 );
@@ -519,17 +619,20 @@ function handlePageChange(nextPage: number) {
                     isSelected ? 'selected-row' : ''
                   }
                 >
-                  {/* Selection cell */}
+                  {/* Selection checkbox */}
                   <td>
                     <input
                       type="checkbox"
                       aria-label={`Select ${rowLabel}`}
                       checked={isSelected}
+                      onChange={() => toggleRow(item)}
                       data-grid-nav="true"
                       data-nav-row={rowIndex}
                       data-nav-col={0}
                       tabIndex={
-                        isActiveCell(rowId, 0) ? 0 : -1
+                        isActiveCell(rowIndex, 0)
+                          ? 0
+                          : -1
                       }
                       onFocus={() =>
                         setActiveCell({
@@ -537,7 +640,6 @@ function handlePageChange(nextPage: number) {
                           columnIndex: 0,
                         })
                       }
-                      onChange={() => toggleRow(item)}
                     />
                   </td>
 
@@ -545,12 +647,15 @@ function handlePageChange(nextPage: number) {
                   {columns.map((column, columnIndex) => (
                     <td
                       key={String(column.accessorKey)}
+                      headers={
+                        `${headerIdPrefix}-${columnIndex}`
+                      }
                       data-grid-nav="true"
                       data-nav-row={rowIndex}
                       data-nav-col={columnIndex + 1}
                       tabIndex={
                         isActiveCell(
-                          rowId,
+                          rowIndex,
                           columnIndex + 1
                         )
                           ? 0
@@ -597,7 +702,9 @@ function handlePageChange(nextPage: number) {
           <button
             type="button"
             disabled={safePage === 1}
-            onClick={() => handlePageChange(safePage - 1)}
+            onClick={() =>
+              handlePageChange(safePage - 1)
+            }
           >
             Previous
           </button>
@@ -609,7 +716,9 @@ function handlePageChange(nextPage: number) {
           <button
             type="button"
             disabled={safePage === totalPages}
-            onClick={() => handlePageChange(safePage + 1)}
+            onClick={() =>
+              handlePageChange(safePage + 1)
+            }
           >
             Next
           </button>

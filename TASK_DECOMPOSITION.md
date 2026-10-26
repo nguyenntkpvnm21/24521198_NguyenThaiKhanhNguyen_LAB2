@@ -117,14 +117,14 @@
 ### Phase 3 — Accessibility
 - [x] HW1-09: Implement keyboard navigation with arrow keys
 - [x] HW1-10: Implement Enter and Space interactions
-- [ ] HW1-11: Implement focus management and ARIA semantics
+- [x] HW1-11: Implement focus management and ARIA semantics
 - [ ] HW1-12: Verify WCAG 2.2 AA color contrast
 
 ### Phase 4 — Testing and Verification
 - [ ] HW1-13: Add functional and accessibility tests
 - [ ] HW1-14: Perform manual keyboard and screen-reader testing
-- [ ] HW1-15: Achieve Lighthouse Accessibility 100
-- [ ] HW1-16: Achieve Lighthouse Best Practices 100
+- [x] HW1-15: Achieve Lighthouse Accessibility 100
+- [x] HW1-16: Achieve Lighthouse Best Practices 100
 
 ### Phase 5 — Submission
 - [ ] HW1-17: Verify atomic Git commits
