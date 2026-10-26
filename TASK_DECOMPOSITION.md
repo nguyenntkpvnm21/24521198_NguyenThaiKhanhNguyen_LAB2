@@ -98,3 +98,36 @@
 - [x] Test retry behavior after failure.
 - [x] Verify race-condition protection.
 - [x] Inspect browser Console and Elements.
+
+
+## Homework 1 — Production Enterprise Data-Grid
+
+### Phase 1 — Project Foundation
+- [x] HW1-01: Define DataGrid requirements and component contracts
+- [x] HW1-02: Initialize React application using Vite
+- [x] HW1-03: Define dataset and column configurations
+
+### Phase 2 — Core DataGrid
+- [x] HW1-04: Implement semantic HTML table
+- [x] HW1-05: Implement column sorting
+- [x] HW1-06: Implement data filtering
+- [x] HW1-07: Implement pagination
+- [x] HW1-08: Implement row selection
+
+### Phase 3 — Accessibility
+- [x] HW1-09: Implement keyboard navigation with arrow keys
+- [x] HW1-10: Implement Enter and Space interactions
+- [ ] HW1-11: Implement focus management and ARIA semantics
+- [ ] HW1-12: Verify WCAG 2.2 AA color contrast
+
+### Phase 4 — Testing and Verification
+- [ ] HW1-13: Add functional and accessibility tests
+- [ ] HW1-14: Perform manual keyboard and screen-reader testing
+- [ ] HW1-15: Achieve Lighthouse Accessibility 100
+- [ ] HW1-16: Achieve Lighthouse Best Practices 100
+
+### Phase 5 — Submission
+- [ ] HW1-17: Verify atomic Git commits
+- [ ] HW1-18: Push Homework 1 to GitHub
+- [ ] HW1-19: Capture screenshots of implementation and results
+- [ ] HW1-20: Prepare submission PDF with GitHub link

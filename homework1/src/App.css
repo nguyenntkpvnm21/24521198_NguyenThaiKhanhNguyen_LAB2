@@ -1,0 +1,322 @@
+
+.app {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.page-header {
+  margin-bottom: 36px;
+}
+
+.eyebrow {
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.page-header h1 {
+  margin: 12px 0;
+  color: #0f172a;
+  font-size: clamp(28px, 4vw, 40px);
+}
+
+.description {
+  color: #475569;
+  font-size: 16px;
+}
+
+.grid-section {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 24px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #0f172a;
+}
+
+.section-heading p {
+  margin: 0;
+  color: #475569;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+thead {
+  background: #f1f5f9;
+}
+
+th {
+  padding: 16px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+td {
+  padding: 16px;
+  border-top: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 14px;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding: 24px 12px;
+  }
+
+  .section-heading {
+    padding: 16px;
+  }
+
+  th,
+  td {
+    padding: 12px;
+  }
+}
+
+
+.sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sort-button:hover {
+  color: #1d4ed8;
+}
+
+.sort-button:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.grid-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.filter-field input,
+.filter-field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  background: #fff;
+  color: #0f172a;
+}
+
+.filter-field input:focus-visible,
+.filter-field select:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+.empty-state {
+  padding: 48px 16px;
+  text-align: center;
+  color: #475569;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.pagination p {
+  margin: 0;
+  font-size: 14px;
+  color: #475569;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pagination-controls button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  background: #fff;
+  color: #0f172a;
+  cursor: pointer;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background: #eff6ff;
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-size: 14px;
+  color: #334155;
+}
+
+/* Row selection */
+
+.selected-row,
+.selected-row:hover {
+  background-color: #dbeafe;
+}
+
+td input[type='checkbox'],
+th input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  accent-color: #1d4ed8;
+  cursor: pointer;
+}
+
+td input[type='checkbox']:focus-visible,
+th input[type='checkbox']:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 3px;
+}
+
+tbody tr.selected-row td {
+  color: #0f172a;
+}
+
+/* ==========================================
+   KEYBOARD NAVIGATION AND FOCUS
+   ========================================== */
+
+.data-grid td[data-grid-nav='true'] {
+  outline: none;
+}
+
+.data-grid td[data-grid-nav='true']:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: -3px;
+  background-color: #dbeafe;
+}
+
+.data-grid input[data-grid-nav='true']:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 3px;
+}
+
+.data-grid tbody tr.selected-row {
+  background-color: #dbeafe;
+}
+
+.data-grid tbody tr.selected-row td {
+  color: #0f172a;
+}
+
+/* ==========================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================== */
+
+/* Visible keyboard focus */
+.data-grid button:focus-visible,
+.data-grid input:focus-visible,
+.data-grid select:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 3px;
+}
+
+/* Focused grid cells */
+.data-grid td[data-grid-nav='true']:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: -3px;
+  background-color: #dbeafe;
+}
+
+/* Keep selected rows visually distinguishable */
+.data-grid tbody tr.selected-row,
+.data-grid tbody tr.selected-row:hover {
+  background-color: #dbeafe;
+}
+
+/* Support high contrast environments */
+@media (forced-colors: active) {
+  .data-grid td:focus-visible,
+  .data-grid button:focus-visible,
+  .data-grid input:focus-visible {
+    outline: 3px solid Highlight;
+  }
+
+  .data-grid tbody tr.selected-row {
+    outline: 1px solid Highlight;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

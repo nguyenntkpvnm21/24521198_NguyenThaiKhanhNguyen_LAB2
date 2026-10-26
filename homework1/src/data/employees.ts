@@ -1,0 +1,103 @@
+
+import type { Employee } from '../types/employee';
+
+export const employees: Employee[] = [
+  {
+    id: 1,
+    name: 'Nguyen Van An',
+    department: 'Engineering',
+    email: 'an@example.com',
+    salary: 18000000,
+    status: 'Active',
+  },
+  {
+    id: 2,
+    name: 'Tran Thi Binh',
+    department: 'Human Resources',
+    email: 'binh@example.com',
+    salary: 15000000,
+    status: 'Active',
+  },
+  {
+    id: 3,
+    name: 'Le Minh Chau',
+    department: 'Finance',
+    email: 'chau@example.com',
+    salary: 22000000,
+    status: 'Inactive',
+  },
+  {
+    id: 4,
+    name: 'Pham Hoang Duy',
+    department: 'Engineering',
+    email: 'duy@example.com',
+    salary: 20000000,
+    status: 'Active',
+  },
+  {
+    id: 5,
+    name: 'Vo Thi Ha',
+    department: 'Marketing',
+    email: 'ha@example.com',
+    salary: 17000000,
+    status: 'Inactive',
+  },
+  
+  {
+    id: 6,
+    name: 'Do Quang Huy',
+    department: 'Engineering',
+    email: 'huy@example.com',
+    salary: 25000000,
+    status: 'Active',
+  },
+  {
+    id: 7,
+    name: 'Bui Thu Lan',
+    department: 'Human Resources',
+    email: 'lan@example.com',
+    salary: 16000000,
+    status: 'Active',
+  },
+  {
+    id: 8,
+    name: 'Hoang Duc Minh',
+    department: 'Finance',
+    email: 'minh@example.com',
+    salary: 21000000,
+    status: 'Inactive',
+  },
+  {
+    id: 9,
+    name: 'Ngo Phuong Mai',
+    department: 'Marketing',
+    email: 'mai@example.com',
+    salary: 19000000,
+    status: 'Active',
+  },
+  {
+    id: 10,
+    name: 'Dang Tuan Kiet',
+    department: 'Engineering',
+    email: 'kiet@example.com',
+    salary: 27000000,
+    status: 'Active',
+  },
+  {
+    id: 11,
+    name: 'Phan Ngoc Anh',
+    department: 'Finance',
+    email: 'ngocanh@example.com',
+    salary: 23000000,
+    status: 'Inactive',
+  },
+  {
+    id: 12,
+    name: 'Vu Thanh Nam',
+    department: 'Marketing',
+    email: 'nam@example.com',
+    salary: 17500000,
+    status: 'Active',
+  },
+
+];
