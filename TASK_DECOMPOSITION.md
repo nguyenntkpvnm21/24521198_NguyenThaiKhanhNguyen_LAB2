@@ -204,9 +204,9 @@
 
 ### Phase 6 — Integration and Verification
 - [x] HW3-22: Integrate countdown, inventory, and UI modules.
-- [ ] HW3-23: Test successful reservation and checkout.
-- [ ] HW3-24: Test inventory exhaustion and reservation expiration.
-- [ ] HW3-25: Verify rapid interactions and concurrency behavior.
+- [x] HW3-23: Test successful reservation and checkout.
+- [x] HW3-24: Test inventory exhaustion and reservation expiration.
+- [x] HW3-25: Verify rapid interactions and concurrency behavior.
 - [ ] HW3-26: Inspect Console, DOM, and application responsiveness.
 
 ### Phase 7 — AI Failure Mode Audit

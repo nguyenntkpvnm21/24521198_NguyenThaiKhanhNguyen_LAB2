@@ -3,6 +3,7 @@ import { createCountdown, formatCountdown } from './timer.js';
 import { createInventory } from './inventory.js';
 import { ReservationStatus } from './contracts.js';
 import { PRODUCTS } from './products.js';
+import { createFlashSale } from './flash-sale.js';
 
 const SALE_DURATION = 5 * 60 * 1000;
 const RESERVATION_DURATION = 30 * 1000;
@@ -30,6 +31,9 @@ const currency = new Intl.NumberFormat('vi-VN', {
 });
 
 const saleEndTime = Date.now() + SALE_DURATION;
+const flashSale = createFlashSale({
+  endTime: saleEndTime
+});
 const reservationIds = [];
 const activityEntries = [];
 
@@ -107,7 +111,7 @@ function renderProducts() {
       'Reserve Now',
       'primary-button',
       'reserve',
-      saleEnded || product.availableStock === 0
+      !flashSale.canReserve() || product.availableStock === 0
     );
 
     reserveButton.dataset.productId = product.id;
@@ -210,7 +214,7 @@ function refreshUI() {
 }
 
 function handleReserve(productId) {
-  if (saleEnded || Date.now() >= saleEndTime) {
+  if (!flashSale.canReserve()) {
     addActivity('Flash sale has ended. New reservations are disabled.');
     return;
   }
@@ -344,20 +348,30 @@ window.addEventListener('pagehide', () => {
   countdown.stop();
 });
 
+
 window.addEventListener('pageshow', event => {
-  if (event.persisted) {
-    countdown.start();
-
-    if (Date.now() >= saleEndTime && !saleEnded) {
-      saleEnded = true;
-      elements.saleBadge.textContent = 'ENDED';
-      elements.saleBadge.classList.add('ended');
-      elements.countdownStatus.textContent = 'Flash sale has ended.';
-    }
-
-    refreshUI();
+  if (!event.persisted) {
+    return;
   }
+
+  countdown.start();
+
+  if (!flashSale.isActive() && !saleEnded) {
+    saleEnded = true;
+    elements.saleBadge.textContent = 'ENDED';
+    elements.saleBadge.classList.add('ended');
+    elements.countdownStatus.textContent = 'Flash sale has ended.';
+  }
+
+  const expiredCount = inventory.expireReservations();
+
+  if (expiredCount > 0) {
+    addActivity(`${expiredCount} reservation(s) expired.`);
+  }
+
+  refreshUI();
 });
+
 
 refreshUI();
 addActivity('Flash sale initialized.');
