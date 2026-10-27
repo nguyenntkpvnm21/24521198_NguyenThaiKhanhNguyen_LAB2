@@ -196,14 +196,14 @@
 - [x] HW3-16: Verify inventory consistency and state invariants.
 
 ### Phase 5 — Flash-Sale User Interface
-- [ ] HW3-17: Create semantic HTML application structure.
-- [ ] HW3-18: Implement responsive CSS layout.
-- [ ] HW3-19: Display countdown and product inventory.
-- [ ] HW3-20: Implement reservation and checkout controls.
-- [ ] HW3-21: Display reservation status and user feedback.
+- [x] HW3-17: Create semantic HTML application structure.
+- [x] HW3-18: Implement responsive CSS layout.
+- [x] HW3-19: Display countdown and product inventory.
+- [x] HW3-20: Implement reservation and checkout controls.
+- [x] HW3-21: Display reservation status and user feedback.
 
 ### Phase 6 — Integration and Verification
-- [ ] HW3-22: Integrate countdown, inventory, and UI modules.
+- [x] HW3-22: Integrate countdown, inventory, and UI modules.
 - [ ] HW3-23: Test successful reservation and checkout.
 - [ ] HW3-24: Test inventory exhaustion and reservation expiration.
 - [ ] HW3-25: Verify rapid interactions and concurrency behavior.
