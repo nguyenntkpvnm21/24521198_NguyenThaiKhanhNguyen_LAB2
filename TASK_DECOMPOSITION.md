@@ -207,7 +207,7 @@
 - [x] HW3-23: Test successful reservation and checkout.
 - [x] HW3-24: Test inventory exhaustion and reservation expiration.
 - [x] HW3-25: Verify rapid interactions and concurrency behavior.
-- [ ] HW3-26: Inspect Console, DOM, and application responsiveness.
+- [x] HW3-26: Inspect Console, DOM, and application responsiveness.
 
 ### Phase 7 — AI Failure Mode Audit
 - [x] HW3-27: Identify at least three AI-generated code failure modes.

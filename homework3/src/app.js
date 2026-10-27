@@ -139,8 +139,11 @@ function renderReservations() {
     );
 
     const card = createElement('article', 'reservation-card');
-    const info = createElement('div', 'reservation-info');
 
+card.dataset.reservationId = reservation.id;
+card.tabIndex = -1;
+
+const info = createElement('div', 'reservation-info');
     info.append(
       createElement('h3', '', product.name),
       createElement('p', '', `Quantity: ${reservation.quantity}`)
@@ -208,10 +211,51 @@ if (reservation.status === ReservationStatus.RESERVED) {
   elements.reservations.replaceChildren(...cards);
 }
 
+
 function refreshUI() {
+  const activeElement = document.activeElement;
+
+  const action = activeElement?.dataset?.action;
+
+  const productId = activeElement?.dataset?.productId;
+  const reservationId = activeElement?.dataset?.reservationId;
+
   renderProducts();
   renderReservations();
+
+  if (!action) {
+    return;
+  }
+
+  const buttons = document.querySelectorAll(
+    'button[data-action]'
+  );
+
+  const matchingButton = [...buttons].find(button => {
+    return (
+      button.dataset.action === action &&
+      button.dataset.productId === productId &&
+      button.dataset.reservationId === reservationId
+    );
+  });
+
+  if (matchingButton && !matchingButton.disabled) {
+    matchingButton.focus({ preventScroll: true });
+    return;
+  }
+
+  // The original action may disappear after a state change.
+  if (reservationId) {
+    const reservationCard = [...document.querySelectorAll(
+      '.reservation-card'
+    )].find(card =>
+      card.dataset.reservationId === reservationId
+    );
+
+    reservationCard?.focus({ preventScroll: true });
+  }
 }
+
 
 function handleReserve(productId) {
   if (!flashSale.canReserve()) {
