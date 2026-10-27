@@ -1,0 +1,121 @@
+
+:root {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  color: #f8fafc;
+  background: #0b1020;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+.app {
+  width: min(960px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 64px 0;
+}
+
+.hero {
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  color: #fb7185;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+h1 {
+  margin: 12px 0;
+  font-size: clamp(32px, 5vw, 56px);
+}
+
+.hero > p:last-child {
+  color: #94a3b8;
+}
+
+.countdown-card {
+  padding: 36px;
+  border: 1px solid #334155;
+  border-radius: 20px;
+  background: #151e32;
+}
+
+.countdown-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.countdown {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 30px 0;
+}
+
+.time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 116px;
+  min-height: 112px;
+  border: 1px solid #475569;
+  border-radius: 14px;
+  background: #0f172a;
+}
+
+.time-unit span {
+  font-size: clamp(32px, 6vw, 48px);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-unit small {
+  margin-top: 6px;
+  color: #94a3b8;
+}
+
+.separator {
+  color: #fb7185;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.status {
+  color: #86efac;
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding-top: 40px;
+  }
+
+  .countdown-card {
+    padding: 20px;
+  }
+
+  .countdown {
+    gap: 6px;
+  }
+
+  .time-unit {
+    width: 72px;
+    min-height: 92px;
+  }
+
+  .time-unit span {
+    font-size: 28px;
+  }
+
+  .separator {
+    font-size: 22px;
+  }
+}

@@ -174,13 +174,13 @@
 ### Phase 1 — Architecture and Contracts
 - [x] HW3-01: Define application requirements and module responsibilities.
 - [x] HW3-02: Define countdown timer and inventory contracts.
-- [ ] HW3-03: Set up the application structure and test environment.
+- [x] HW3-03: Set up the application structure and test environment.
 
 ### Phase 2 — Zero-Drift Countdown Engine
-- [ ] HW3-04: Implement timestamp-based countdown calculation.
-- [ ] HW3-05: Implement requestAnimationFrame rendering.
-- [ ] HW3-06: Handle timer completion and cleanup.
-- [ ] HW3-07: Test timer accuracy after tab inactivity.
+- [x] HW3-04: Implement timestamp-based countdown calculation.
+- [x] HW3-05: Implement requestAnimationFrame rendering.
+- [x] HW3-06: Handle timer completion and cleanup.
+- [x] HW3-07: Test timer accuracy after tab inactivity.
 
 ### Phase 3 — Inventory State Machine
 - [ ] HW3-08: Define inventory and reservation state contracts.
