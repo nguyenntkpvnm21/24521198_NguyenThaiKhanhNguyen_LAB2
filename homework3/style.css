@@ -11,14 +11,37 @@
 }
 
 body {
-  min-height: 100vh;
   margin: 0;
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button:focus-visible {
+  outline: 3px solid #fda4af;
+  outline-offset: 3px;
 }
 
 .app {
-  width: min(960px, calc(100% - 32px));
-  margin: 0 auto;
-  padding: 64px 0;
+  width: min(1100px, calc(100% - 32px));
+  margin: auto;
+  padding: 48px 0 80px;
+}
+
+.hero,
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
 }
 
 .hero {
@@ -29,35 +52,57 @@ body {
   color: #fb7185;
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
 }
 
 h1 {
-  margin: 12px 0;
-  font-size: clamp(32px, 5vw, 56px);
+  margin: 8px 0;
+  font-size: clamp(32px, 5vw, 52px);
 }
 
-.hero > p:last-child {
+h2 {
+  font-size: 22px;
+}
+
+.subtitle,
+.section-heading p,
+.empty-message {
   color: #94a3b8;
 }
 
-.countdown-card {
-  padding: 36px;
+.sale-badge {
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #14532d;
+  color: #bbf7d0;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.sale-badge.ended {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+.countdown-card,
+.reservations-section,
+.activity-section {
+  padding: 28px;
   border: 1px solid #334155;
   border-radius: 20px;
   background: #151e32;
 }
 
-.countdown-card h2 {
-  margin-top: 0;
-  font-size: 20px;
+.countdown-card {
+  text-align: center;
 }
 
 .countdown {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin: 30px 0;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0;
 }
 
 .time-unit {
@@ -65,27 +110,27 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 116px;
-  min-height: 112px;
+  width: 100px;
+  min-height: 100px;
   border: 1px solid #475569;
   border-radius: 14px;
   background: #0f172a;
 }
 
 .time-unit span {
-  font-size: clamp(32px, 6vw, 48px);
+  font-size: 40px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
 
 .time-unit small {
-  margin-top: 6px;
+  margin-top: 4px;
   color: #94a3b8;
 }
 
 .separator {
   color: #fb7185;
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 800;
 }
 
@@ -93,29 +138,186 @@ h1 {
   color: #86efac;
 }
 
-@media (max-width: 480px) {
+.products-section,
+.reservations-section,
+.activity-section {
+  margin-top: 32px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  padding: 24px;
+  border: 1px solid #334155;
+  border-radius: 18px;
+  background: #151e32;
+}
+
+.product-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  border-radius: 12px;
+  background: #26324c;
+  font-size: 48px;
+}
+
+.product-card h3 {
+  margin-bottom: 6px;
+}
+
+.product-description {
+  color: #94a3b8;
+  min-height: 42px;
+}
+
+.price {
+  color: #fb7185;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.original-price {
+  color: #94a3b8;
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.stock {
+  margin: 16px 0;
+  font-weight: 600;
+}
+
+.stock.low-stock {
+  color: #fbbf24;
+}
+
+.primary-button,
+.secondary-button {
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.primary-button {
+  background: #e11d48;
+  color: #ffffff;
+}
+
+.primary-button:hover:not(:disabled) {
+  background: #be123c;
+}
+
+.secondary-button {
+  background: #334155;
+  color: #ffffff;
+}
+
+.reservation-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #334155;
+}
+
+.reservation-card:last-child {
+  border-bottom: 0;
+}
+
+.reservation-info p {
+  margin: 5px 0;
+  color: #94a3b8;
+}
+
+.reservation-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.reservation-status {
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.reservation-status.purchased {
+  color: #86efac;
+}
+
+.reservation-status.expired,
+.reservation-status.cancelled {
+  color: #fda4af;
+}
+
+.activity-log {
+  padding-left: 20px;
+  color: #cbd5e1;
+}
+
+.activity-log li {
+  margin: 8px 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 640px) {
   .app {
-    padding-top: 40px;
+    padding-top: 28px;
   }
 
-  .countdown-card {
+  .hero,
+  .section-heading,
+  .reservation-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .countdown-card,
+  .reservations-section,
+  .activity-section {
     padding: 20px;
-  }
-
-  .countdown {
-    gap: 6px;
   }
 
   .time-unit {
     width: 72px;
-    min-height: 92px;
+    min-height: 86px;
   }
 
   .time-unit span {
     font-size: 28px;
   }
 
+  .countdown {
+    gap: 7px;
+  }
+
   .separator {
     font-size: 22px;
+  }
+
+  .product-card {
+    padding: 18px;
   }
 }

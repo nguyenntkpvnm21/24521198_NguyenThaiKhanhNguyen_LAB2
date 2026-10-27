@@ -4,51 +4,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="High-concurrency flash-sale engine">
-  <title>Flash Sale Engine</title>
+  <meta name="description" content="Flash sale inventory and reservation engine">
+  <title>Midnight Flash Sale</title>
   <link rel="stylesheet" href="./style.css">
   <script type="module" src="./src/app.js"></script>
 </head>
 <body>
   <main class="app">
     <header class="hero">
-      <p class="eyebrow">FLASH SALE ENGINE</p>
-      <h1>Midnight Flash Sale</h1>
-      <p>Zero-drift countdown demonstration</p>
+      <div>
+        <p class="eyebrow">11.11 FLASH DEALS</p>
+        <h1>Midnight Flash Sale</h1>
+        <p class="subtitle">
+          Limited stock. Reserve your deal before time runs out.
+        </p>
+      </div>
+      <span id="sale-badge" class="sale-badge">LIVE</span>
     </header>
 
     <section class="countdown-card" aria-labelledby="countdown-title">
       <h2 id="countdown-title">Sale ends in</h2>
 
-      <div
-        class="countdown"
-        role="timer"
-        aria-label="Time remaining until the flash sale ends"
-      >
+      <div class="countdown" role="timer"
+           aria-label="Remaining flash sale time">
         <div class="time-unit">
           <span id="hours">00</span>
           <small>Hours</small>
         </div>
-
         <span class="separator" aria-hidden="true">:</span>
-
         <div class="time-unit">
           <span id="minutes">00</span>
           <small>Minutes</small>
         </div>
-
         <span class="separator" aria-hidden="true">:</span>
-
         <div class="time-unit">
           <span id="seconds">00</span>
           <small>Seconds</small>
         </div>
       </div>
 
-      <p id="countdown-status" class="status">
+      <p id="countdown-status" class="status" role="status">
         Initializing countdown...
       </p>
     </section>
+
+    <section class="products-section" aria-labelledby="products-title">
+      <div class="section-heading">
+        <h2 id="products-title">Flash Deals</h2>
+        <p>Each reservation lasts 30 seconds.</p>
+      </div>
+
+      <div id="products" class="product-grid"></div>
+    </section>
+
+    <section class="reservations-section"
+             aria-labelledby="reservations-title">
+      <h2 id="reservations-title">Your Reservations</h2>
+      <div id="reservations" class="reservation-list">
+        <p class="empty-message">No reservations yet.</p>
+      </div>
+    </section>
+
+    <section class="activity-section" aria-labelledby="activity-title">
+      <h2 id="activity-title">Activity Log</h2>
+      <ul id="activity-log" class="activity-log"></ul>
+    </section>
+
+    <p id="app-message" class="sr-only"
+       role="status" aria-live="polite"></p>
   </main>
 </body>
 </html>
