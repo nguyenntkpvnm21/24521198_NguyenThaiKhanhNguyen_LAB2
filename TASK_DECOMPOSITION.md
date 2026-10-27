@@ -183,17 +183,17 @@
 - [x] HW3-07: Test timer accuracy after tab inactivity.
 
 ### Phase 3 — Inventory State Machine
-- [ ] HW3-08: Define inventory and reservation state contracts.
-- [ ] HW3-09: Implement valid reservation state transitions.
-- [ ] HW3-10: Implement product reservation and inventory locking.
-- [ ] HW3-11: Implement reservation expiration and inventory release.
-- [ ] HW3-12: Implement checkout and purchase confirmation.
+- [x] HW3-08: Define inventory and reservation state contracts.
+- [x] HW3-09: Implement valid reservation state transitions.
+- [x] HW3-10: Implement product reservation and inventory locking.
+- [x] HW3-11: Implement reservation expiration and inventory release.
+- [x] HW3-12: Implement checkout and purchase confirmation.
 
 ### Phase 4 — Concurrency and Inventory Safety
-- [ ] HW3-13: Prevent overselling and duplicate reservations.
-- [ ] HW3-14: Handle competing reservation requests.
-- [ ] HW3-15: Test expiration and checkout race conditions.
-- [ ] HW3-16: Verify inventory consistency and state invariants.
+- [x] HW3-13: Prevent overselling and duplicate reservations.
+- [x] HW3-14: Handle competing reservation requests.
+- [x] HW3-15: Test expiration and checkout race conditions.
+- [x] HW3-16: Verify inventory consistency and state invariants.
 
 ### Phase 5 — Flash-Sale User Interface
 - [ ] HW3-17: Create semantic HTML application structure.
