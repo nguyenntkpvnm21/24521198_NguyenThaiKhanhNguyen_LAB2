@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="description"
+    content="FIFO Audio Visualizer with Web Audio API"
+  />
+
+  <title>FIFO Audio Visualizer</title>
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <main class="app">
+    <header class="app-header">
+      <p class="eyebrow">LAB 02 — HOMEWORK 2</p>
+      <h1>FIFO Audio Visualizer</h1>
+      <p class="subtitle">
+        Concurrent requests. Sequential processing.
+        Real-time audio visualization.
+      </p>
+    </header>
+
+    <section class="panel" aria-labelledby="controls-title">
+      <h2 id="controls-title">Audio Controls</h2>
+
+      <div class="input-group">
+        <label for="track-url">Audio file URL</label>
+
+        <input
+          id="track-url"
+          type="url"
+          placeholder="https://example.com/audio.mp3"
+          autocomplete="off"
+        />
+
+        <button id="enqueue-button" type="button">
+          Add to Queue
+        </button>
+      </div>
+
+      <div class="button-group">
+        <button id="play-button" type="button" disabled>
+          Play
+        </button>
+
+        <button id="stop-button" type="button" disabled>
+          Stop
+        </button>
+
+        <button id="cancel-button" type="button">
+          Cancel Active Load
+        </button>
+
+        <button id="clear-button" type="button">
+          Clear Pending Queue
+        </button>
+      </div>
+
+      <p id="status-message" role="status" aria-live="polite">
+        Ready to load audio.
+      </p>
+    </section>
+
+    <div class="dashboard-grid">
+    <section class="panel" aria-labelledby="visualizer-title">
+      <div class="section-heading">
+        <h2 id="visualizer-title">Frequency Spectrum</h2>
+        <span class="status-label">FFT 256</span>
+      </div>
+
+      <canvas
+        id="audio-canvas"
+        width="960"
+        height="320"
+        aria-label="Real-time audio frequency visualization"
+        role="img"
+      ></canvas>
+    </section>
+
+    <section class="panel" aria-labelledby="queue-title">
+      <div class="section-heading">
+        <h2 id="queue-title">FIFO Task Queue</h2>
+        <span id="queue-count" class="status-label">
+          0 pending
+        </span>
+      </div>
+
+      <ol id="queue-list" class="queue-list">
+        <li class="empty-message">
+          No audio tasks in the queue.
+        </li>
+      </ol>
+    </section>
+    
+    </div>
+
+    <footer class="app-footer">
+      <p>
+        Web Audio API · FIFO Queue · Canvas · requestAnimationFrame
+      </p>
+    </footer>
+  </main>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

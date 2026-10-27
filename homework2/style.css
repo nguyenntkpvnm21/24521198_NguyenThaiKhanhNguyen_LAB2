@@ -1,0 +1,322 @@
+
+:root {
+  font-family: Inter, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  color: #e5e7eb;
+  background: #090d18;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 1px solid #475569;
+  border-radius: 10px;
+  padding: 12px 18px;
+
+  color: #f8fafc;
+  background: #1e293b;
+
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background: #334155;
+  transform: translateY(-1px);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #38bdf8;
+  outline-offset: 3px;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+
+  padding: 12px 14px;
+  border: 1px solid #475569;
+  border-radius: 10px;
+
+  color: #f8fafc;
+  background: #0f172a;
+}
+
+input::placeholder {
+  color: #94a3b8;
+}
+
+.app {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0 32px;
+}
+
+.app-header {
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: #38bdf8;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  letter-spacing: -0.04em;
+}
+
+.subtitle {
+  max-width: 680px;
+  margin-top: 16px;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.panel {
+  margin-bottom: 24px;
+  padding: 28px;
+
+  border: 1px solid #263449;
+  border-radius: 18px;
+
+  background: #111827;
+  box-shadow: 0 12px 35px rgb(0 0 0 / 0.16);
+}
+
+.panel h2 {
+  margin: 0 0 20px;
+  font-size: 1.2rem;
+}
+
+.input-group {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.input-group label {
+  grid-column: 1 / -1;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+#enqueue-button {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+#enqueue-button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+#play-button {
+  background: #047857;
+  border-color: #047857;
+}
+
+#stop-button {
+  background: #9f1239;
+  border-color: #9f1239;
+}
+
+#status-message {
+  margin: 20px 0 0;
+  min-height: 24px;
+
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-label {
+  padding: 6px 10px;
+  border-radius: 999px;
+
+  background: #1e293b;
+  color: #93c5fd;
+
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+#audio-canvas {
+  display: block;
+  width: 100%;
+  height: 320px;
+
+  border: 1px solid #263449;
+  border-radius: 12px;
+  background: #020617;
+}
+
+.queue-list {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.queue-list li {
+  padding: 10px 4px;
+  border-bottom: 1px solid #263449;
+  overflow-wrap: anywhere;
+}
+
+.queue-list li:last-child {
+  border-bottom: 0;
+}
+
+.empty-message {
+  color: #94a3b8;
+}
+
+.app-footer {
+  padding: 16px 0;
+  text-align: center;
+
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding-top: 28px;
+  }
+
+  .panel {
+    padding: 20px;
+  }
+
+  .input-group {
+    grid-template-columns: 1fr;
+  }
+
+  .input-group label {
+    grid-column: auto;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .button-group button {
+    width: 100%;
+  }
+
+  #audio-canvas {
+    height: 240px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
+  }
+
+  button:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* =====================================================
+   Dashboard Layout — Visualizer and FIFO Queue
+   ===================================================== */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+.dashboard-grid .panel {
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+.dashboard-grid #audio-canvas {
+  height: 250px;
+}
+
+.dashboard-grid .queue-list {
+  max-height: 250px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #475569 #111827;
+}
+
+.dashboard-grid .queue-list li {
+  line-height: 1.5;
+}
+
+/* Compact spacing on desktop */
+@media (min-width: 901px) {
+  .app {
+    padding-top: 28px;
+  }
+
+  .app-header {
+    margin-bottom: 22px;
+  }
+
+  .panel {
+    padding: 22px;
+    margin-bottom: 20px;
+  }
+}
+
+/* Stack sections vertically on tablets and phones */
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid #audio-canvas {
+    height: 220px;
+  }
+
+  .dashboard-grid .queue-list {
+    max-height: 200px;
+  }
+}
