@@ -210,10 +210,10 @@
 - [ ] HW3-26: Inspect Console, DOM, and application responsiveness.
 
 ### Phase 7 — AI Failure Mode Audit
-- [ ] HW3-27: Identify at least three AI-generated code failure modes.
-- [ ] HW3-28: Document reproduction steps and observed behavior.
-- [ ] HW3-29: Explain root causes, fixes, and verification results.
-- [ ] HW3-30: Complete AI_FAILURE_AUDIT.md.
+- [x] HW3-27: Identify at least three AI-generated code failure modes.
+- [x] HW3-28: Document reproduction steps and observed behavior.
+- [x] HW3-29: Explain root causes, fixes, and verification results.
+- [x] HW3-30: Complete AI_FAILURE_AUDIT.md.
 
 ### Phase 8 — Final Delivery
 - [ ] HW3-31: Complete at least eight atomic Conventional Commits.
