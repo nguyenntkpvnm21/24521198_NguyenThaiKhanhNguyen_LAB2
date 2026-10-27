@@ -130,14 +130,14 @@
 ## Homework 2 — Concurrent FIFO Audio Visualizer Queue Engine
 
 ### Phase 1 — Architecture and Contracts
-- [ ] HW2-01: Define application modules and responsibilities.
-- [ ] HW2-02: Define FIFO queue task contracts and lifecycle.
-- [ ] HW2-03: Define audio engine and visualizer interfaces.
+- [x] HW2-01: Define application modules and responsibilities.
+- [x] HW2-02: Define FIFO queue task contracts and lifecycle.
+- [x] HW2-03: Define audio engine and visualizer interfaces.
 
 ### Phase 2 — Application UI
-- [ ] HW2-04: Create semantic HTML application structure.
+- [x] HW2-04: Create semantic HTML application structure.
 - [x] HW2-05: Implement responsive CSS layout.
-- [ ] HW2-06: Add playback controls and queue status display.
+- [x] HW2-06: Add playback controls and queue status display.
 
 ### Phase 3 — FIFO Audio Task Queue
 - [x] HW2-07: Implement AudioTaskQueue and enqueue().
