@@ -126,8 +126,45 @@
 - [x] HW1-15: Achieve Lighthouse Accessibility 100
 - [x] HW1-16: Achieve Lighthouse Best Practices 100
 
-### Phase 5 — Submission
-- [ ] HW1-17: Verify atomic Git commits
-- [ ] HW1-18: Push Homework 1 to GitHub
-- [ ] HW1-19: Capture screenshots of implementation and results
-- [ ] HW1-20: Prepare submission PDF with GitHub link
+
+## Homework 2 — Concurrent FIFO Audio Visualizer Queue Engine
+
+### Phase 1 — Architecture and Contracts
+- [ ] HW2-01: Define application modules and responsibilities.
+- [ ] HW2-02: Define FIFO queue task contracts and lifecycle.
+- [ ] HW2-03: Define audio engine and visualizer interfaces.
+
+### Phase 2 — Application UI
+- [ ] HW2-04: Create semantic HTML application structure.
+- [x] HW2-05: Implement responsive CSS layout.
+- [ ] HW2-06: Add playback controls and queue status display.
+
+### Phase 3 — FIFO Audio Task Queue
+- [x] HW2-07: Implement AudioTaskQueue and enqueue().
+- [x] HW2-08: Implement sequential processNext() execution.
+- [x] HW2-09: Handle task completion, rejection, and queue recovery.
+- [x] HW2-10: Verify FIFO ordering using automated tests.
+
+### Phase 4 — Web Audio Engine
+- [x] HW2-11: Initialize AudioContext and AnalyserNode.
+- [x] HW2-12: Fetch and decode audio into AudioBuffer.
+- [x] HW2-13: Implement playback, stop, and track switching.
+- [x] HW2-14: Connect audio source to analyser and destination.
+
+### Phase 5 — Audio Visualization
+- [x] HW2-15: Implement Canvas frequency spectrum rendering.
+- [x] HW2-16: Configure FFT analysis with fftSize 256 or 512.
+- [x] HW2-17: Implement requestAnimationFrame rendering loop.
+- [x] HW2-18: Verify animation performance and responsiveness.
+
+### Phase 6 — Cancellation and Memory Safety
+- [x] HW2-19: Implement AbortController for active fetch operations.
+- [x] HW2-20: Handle queued and active task cancellation.
+- [x] HW2-21: Clean up AudioBufferSourceNode connections and references.
+- [x] HW2-22: Cancel animation frames and release audio resources.
+
+### Phase 7 — Integration and Verification
+- [x] HW2-23: Integrate queue, audio engine, visualizer, and UI.
+- [x] HW2-24: Test rapid enqueue, cancellation, and error recovery.
+- [x] HW2-25: Check for unhandled errors and resource leaks.
+- [x] HW2-26: Verify behavior using Chrome DevTools.
