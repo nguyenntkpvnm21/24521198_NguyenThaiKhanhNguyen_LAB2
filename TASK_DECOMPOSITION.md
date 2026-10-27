@@ -168,3 +168,56 @@
 - [x] HW2-24: Test rapid enqueue, cancellation, and error recovery.
 - [x] HW2-25: Check for unhandled errors and resource leaks.
 - [x] HW2-26: Verify behavior using Chrome DevTools.
+
+## Homework 3 — High-Concurrency Flash-Sale E-Commerce Engine
+
+### Phase 1 — Architecture and Contracts
+- [x] HW3-01: Define application requirements and module responsibilities.
+- [x] HW3-02: Define countdown timer and inventory contracts.
+- [ ] HW3-03: Set up the application structure and test environment.
+
+### Phase 2 — Zero-Drift Countdown Engine
+- [ ] HW3-04: Implement timestamp-based countdown calculation.
+- [ ] HW3-05: Implement requestAnimationFrame rendering.
+- [ ] HW3-06: Handle timer completion and cleanup.
+- [ ] HW3-07: Test timer accuracy after tab inactivity.
+
+### Phase 3 — Inventory State Machine
+- [ ] HW3-08: Define inventory and reservation state contracts.
+- [ ] HW3-09: Implement valid reservation state transitions.
+- [ ] HW3-10: Implement product reservation and inventory locking.
+- [ ] HW3-11: Implement reservation expiration and inventory release.
+- [ ] HW3-12: Implement checkout and purchase confirmation.
+
+### Phase 4 — Concurrency and Inventory Safety
+- [ ] HW3-13: Prevent overselling and duplicate reservations.
+- [ ] HW3-14: Handle competing reservation requests.
+- [ ] HW3-15: Test expiration and checkout race conditions.
+- [ ] HW3-16: Verify inventory consistency and state invariants.
+
+### Phase 5 — Flash-Sale User Interface
+- [ ] HW3-17: Create semantic HTML application structure.
+- [ ] HW3-18: Implement responsive CSS layout.
+- [ ] HW3-19: Display countdown and product inventory.
+- [ ] HW3-20: Implement reservation and checkout controls.
+- [ ] HW3-21: Display reservation status and user feedback.
+
+### Phase 6 — Integration and Verification
+- [ ] HW3-22: Integrate countdown, inventory, and UI modules.
+- [ ] HW3-23: Test successful reservation and checkout.
+- [ ] HW3-24: Test inventory exhaustion and reservation expiration.
+- [ ] HW3-25: Verify rapid interactions and concurrency behavior.
+- [ ] HW3-26: Inspect Console, DOM, and application responsiveness.
+
+### Phase 7 — AI Failure Mode Audit
+- [ ] HW3-27: Identify at least three AI-generated code failure modes.
+- [ ] HW3-28: Document reproduction steps and observed behavior.
+- [ ] HW3-29: Explain root causes, fixes, and verification results.
+- [ ] HW3-30: Complete AI_FAILURE_AUDIT.md.
+
+### Phase 8 — Final Delivery
+- [ ] HW3-31: Complete at least eight atomic Conventional Commits.
+- [ ] HW3-32: Review final Git history and working tree.
+- [ ] HW3-33: Push Homework 3 to GitHub.
+- [ ] HW3-34: Capture screenshots of functionality and test results.
+- [ ] HW3-35: Prepare one PDF with GitHub link and screenshots.
