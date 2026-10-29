@@ -216,8 +216,8 @@
 - [x] HW3-30: Complete AI_FAILURE_AUDIT.md.
 
 ### Phase 8 — Final Delivery
-- [ ] HW3-31: Complete at least eight atomic Conventional Commits.
-- [ ] HW3-32: Review final Git history and working tree.
-- [ ] HW3-33: Push Homework 3 to GitHub.
-- [ ] HW3-34: Capture screenshots of functionality and test results.
+- [x] HW3-31: Complete at least eight atomic Conventional Commits.
+- [x] HW3-32: Review final Git history and working tree.
+- [x] HW3-33: Push Homework 3 to GitHub.
+- [x] HW3-34: Capture screenshots of functionality and test results.
 - [x] HW3-31: Complete at least eight atomic Conventional Commits.
