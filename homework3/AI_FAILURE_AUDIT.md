@@ -173,3 +173,78 @@ operations and shared inventory.
 This audit uses controlled failure examples to
 demonstrate three risks and verifies their corrections
 through automated tests.
+
+
+---
+
+## 7. AF-04: Keyboard Focus Loss After DOM Replacement
+
+### Detected issue
+
+During keyboard interaction, the application rebuilt
+the product and reservation controls using
+replaceChildren().
+
+The original focused button was removed from the DOM,
+which could cause keyboard focus to return to BODY.
+
+### Affected implementation
+
+The initial refreshUI() implementation called
+renderProducts() and renderReservations() without
+preserving the identity of the activated control.
+
+An earlier focus-restoration attempt was introduced
+in commit 0d03b3b, but its behavior required
+additional investigation.
+
+### Root cause
+
+The UI replaced interactive DOM elements during
+reservation updates. Relying on document.activeElement
+inside refreshUI() was insufficiently reliable for
+preserving the activated control across updates.
+
+### Manual correction
+
+The event delegation handler now captures the
+activated button's action, productId and reservationId.
+
+This focusTarget is forwarded to the appropriate
+action handler and then to refreshUI(focusTarget).
+
+After rendering, the application searches for a
+matching enabled control and restores focus.
+
+If the original control is unavailable, a suitable
+reservation card or section heading is used instead.
+
+### Verification
+
+The issue was investigated using Chrome DevTools
+and document.activeElement.
+
+Observed before the final correction:
+
+- beforeTag: BUTTON
+- beforeAction: reserve
+- afterTag: BODY
+- afterAction: undefined
+- oldElementConnected: false
+
+Observed after the final correction:
+
+- The replacement Reserve button received focus.
+- The focused control retained its reserve action.
+- The focus-restoration debug check succeeded.
+
+The corrected version was verified using the
+current application served at localhost:8765.
+
+### Engineering lesson
+
+Replacing interactive DOM nodes requires explicit
+focus management. Capturing the activated control's
+identity before updating the DOM is more reliable
+than relying only on document.activeElement during
+the rendering process.

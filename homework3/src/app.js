@@ -212,20 +212,16 @@ if (reservation.status === ReservationStatus.RESERVED) {
 }
 
 
-function refreshUI() {
-  const activeElement = document.activeElement;
 
-  const action = activeElement?.dataset?.action;
-
-  const productId = activeElement?.dataset?.productId;
-  const reservationId = activeElement?.dataset?.reservationId;
-
+function refreshUI(focusTarget = null) {
   renderProducts();
   renderReservations();
 
-  if (!action) {
+  if (!focusTarget) {
     return;
   }
+
+  const { action, productId, reservationId } = focusTarget;
 
   const buttons = document.querySelectorAll(
     'button[data-action]'
@@ -239,25 +235,43 @@ function refreshUI() {
     );
   });
 
-  if (matchingButton && !matchingButton.disabled) {
-    matchingButton.focus({ preventScroll: true });
-    return;
+ if (matchingButton && !matchingButton.disabled) {
+  matchingButton.focus({ preventScroll: true });
+  return;
+}
+
+  if (reservationId) {
+    const reservationCard = [
+      ...document.querySelectorAll('.reservation-card')
+    ].find(card => card.dataset.reservationId === reservationId);
+
+    if (reservationCard) {
+      reservationCard.focus({ preventScroll: true });
+      return;
+    }
   }
 
-  // The original action may disappear after a state change.
-  if (reservationId) {
-    const reservationCard = [...document.querySelectorAll(
-      '.reservation-card'
-    )].find(card =>
-      card.dataset.reservationId === reservationId
+  // When the original control is no longer available,
+  // focus the relevant product or section heading.
+  if (productId) {
+    const productButton = [...buttons].find(button =>
+      button.dataset.productId === productId &&
+      !button.disabled
     );
 
-    reservationCard?.focus({ preventScroll: true });
+    if (productButton) {
+      productButton.focus({ preventScroll: true });
+      return;
+    }
   }
+
+  const heading = document.getElementById('products-title');
+  heading.focus({ preventScroll: true });
 }
 
 
-function handleReserve(productId) {
+
+function handleReserve(productId, focusTarget) {
   if (!flashSale.canReserve()) {
     addActivity('Flash sale has ended. New reservations are disabled.');
     return;
@@ -269,10 +283,10 @@ function handleReserve(productId) {
     reservationIds.push(reservation.id);
 
     addActivity(`Reservation created: ${reservation.id}`);
-    refreshUI();
+    refreshUI(focusTarget);
   } catch (error) {
     addActivity(`Reservation failed: ${error.message}`);
-    refreshUI();
+    refreshUI(focusTarget);
   }
 }
 
@@ -281,10 +295,10 @@ function handleCheckout(reservationId) {
     inventory.checkout(reservationId);
 
     addActivity(`Purchase completed: ${reservationId}`);
-    refreshUI();
+    refreshUI(focusTarget);
   } catch (error) {
     addActivity(`Checkout failed: ${error.message}`);
-    refreshUI();
+    refreshUI(focusTarget);
   }
 }
 
@@ -293,10 +307,10 @@ function handleCancel(reservationId) {
     inventory.cancel(reservationId);
 
     addActivity(`Reservation cancelled: ${reservationId}`);
-    refreshUI();
+    refreshUI(focusTarget);
   } catch (error) {
     addActivity(`Cancellation failed: ${error.message}`);
-    refreshUI();
+    refreshUI(focusTarget);
   }
 }
 
@@ -310,14 +324,19 @@ document.querySelector('.app').addEventListener('click', event => {
   }
 
   const action = button.dataset.action;
+  const focusTarget = {
+  action,
+  productId: button.dataset.productId,
+  reservationId: button.dataset.reservationId
+};
 
   if (action === 'reserve') {
-    handleReserve(button.dataset.productId);
-  } else if (action === 'checkout') {
-    handleCheckout(button.dataset.reservationId);
-  } else if (action === 'cancel') {
-    handleCancel(button.dataset.reservationId);
-  }
+  handleReserve(button.dataset.productId, focusTarget);
+} else if (action === 'checkout') {
+  handleCheckout(button.dataset.reservationId, focusTarget);
+} else if (action === 'cancel') {
+  handleCancel(button.dataset.reservationId, focusTarget);
+}
 });
 
 function renderCountdown(remaining) {
